@@ -1,25 +1,30 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
-import { QuranSurah } from "@/app/(page)/type"; 
+import { QuranSurah } from "@/app/(page)/type";
+import { FavoriteContextType } from "./type";
 
-interface FavoriteContextType {
-  favorites: QuranSurah[];
-  toggleFavorite: (surah: QuranSurah) => void;
-}
+const FavoriteContext = createContext<FavoriteContextType | null>(
+  null
+);
 
-const FavoriteContext = createContext<FavoriteContextType | undefined>(undefined);
-
-export const FavoriteProvider = ({ children }: { children: React.ReactNode }) => {
+export const FavoriteProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [favorites, setFavorites] = useState<QuranSurah[]>([]);
 
   useEffect(() => {
     const storedFavorites = localStorage.getItem("favorites");
+    console.log("Data dari localStorage:", storedFavorites);
     if (storedFavorites) {
       setFavorites(JSON.parse(storedFavorites));
     }
   }, []);
 
   const toggleFavorite = (surah: QuranSurah) => {
+    if (!surah || !surah.nomor) return;
+
     let updatedFavorites;
     if (favorites.some((fav) => fav.nomor === surah.nomor)) {
       updatedFavorites = favorites.filter((fav) => fav.nomor !== surah.nomor);

@@ -1,5 +1,6 @@
 import { CardSurahProps } from "@/components/type";
 import { BsXLg } from "react-icons/bs";
+import { useFavorites } from "@/context/FavoriteContext";
 
 const PopUp = ({
   handleIsOpen,
@@ -9,7 +10,12 @@ const PopUp = ({
   asma,
   keterangan,
   type,
+  surah,
+  nomor,
 }: CardSurahProps) => {
+  const { favorites, toggleFavorite } = useFavorites();
+  const isFavorite = !surah ? favorites.some((fav) => fav.nomor === nomor) : false;
+  
   const formattedKeterangan = keterangan
     ? keterangan.replace(/<i><i>/, '<span class="italic"></span>')
     : "";
@@ -42,6 +48,14 @@ const PopUp = ({
             dangerouslySetInnerHTML={{ __html: formattedKeterangan }}
             className="text-justify text-[14px] lg:text-[16px]"
           />
+
+          <button
+            onClick={() => toggleFavorite(surah)}
+            className={`px-3 py-3 rounded-md ${
+              isFavorite ? "bg-red-500 text-white" : "bg-stone-400 text-white"
+            }`}>
+            {isFavorite ? "Unsave" : "Save"}
+          </button>
         </div>
       </div>
     </div>

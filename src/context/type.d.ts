@@ -3,5 +3,5 @@ export interface FavoriteProviderProps {
 }
 export interface FavoriteContextType {
     favorites: QuranSurah[];
-    handleFavorites: (surah: QuranSurah) => void;
+    toggleFavorite: (surah: QuranSurah) => void;
   }
