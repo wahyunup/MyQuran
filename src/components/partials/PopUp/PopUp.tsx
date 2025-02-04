@@ -9,7 +9,6 @@ const PopUp = ({
   asma,
   keterangan,
   type,
-  audio,
 }: CardSurahProps) => {
   const formattedKeterangan = keterangan
     ? keterangan.replace(/<i><i>/, '<span class="italic"></span>')
