@@ -1,6 +1,5 @@
 import { CardSurahProps } from "@/components/type";
 import { BsXLg } from "react-icons/bs";
-import { AiFillSound } from "react-icons/ai";
 
 const PopUp = ({
   handleIsOpen,
